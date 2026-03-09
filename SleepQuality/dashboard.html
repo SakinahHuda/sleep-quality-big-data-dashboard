@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Power BI Embed</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ----------------------------------------------------
+       BACKGROUND ANIMATION
+    ---------------------------------------------------- */
+    .animated-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -5;
+    }
+
+    .blob {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle at 30% 30%, #ffb3d9, #b38bff);
+      opacity: 0.35;
+      filter: blur(80px);
+      border-radius: 40%;
+      animation: floatBlob 20s infinite ease-in-out alternate;
+    }
+
+    .blob1 { top: -10%; left: -10%; animation-duration: 22s; }
+    .blob2 {
+      bottom: -15%;
+      right: -5%;
+      background: radial-gradient(circle at 20% 20%, #b3e5ff, #809fff);
+      animation-duration: 18s;
+    }
+    .blob3 {
+      top: 40%;
+      left: 60%;
+      background: radial-gradient(circle at 20% 20%, #ffe9b3, #ffb968);
+      animation-duration: 25s;
+    }
+
+    @keyframes floatBlob {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(40px,-60px) scale(1.15); }
+      100% { transform: translate(-30px,40px) scale(0.95); }
+    }
+
+    /* ----------------------------------------------------
+       RESET & BASE
+    ---------------------------------------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body {
+      background: #1b234d;
+      color: #f7f1f1;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ----------------------------------------------------
+       NAVBAR
+    ---------------------------------------------------- */
+    .navbar {
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(6px);
+      padding: 0.8rem 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    .nav-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-image {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      border: 2px solid transparent;
+      transition: 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      border-color: #ffb968;
+      background: rgba(255,185,104,0.1);
+    }
+
+    /* Hamburger for mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    /* ----------------------------------------------------
+       HERO SECTION
+    ---------------------------------------------------- */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 20vh;
+      margin-top: 70px; /* space for fixed navbar */
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(37, 2, 97, 0.9);
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1;
+      color: #fff;
+    }
+
+    .hero-content h1 {
+      font-size: 2.6rem;
+      margin-bottom: 0.5rem;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      animation: fadeIn 1.4s ease forwards;
+    }
+
+    /* ----------------------------------------------------
+       POWER BI SECTION
+    ---------------------------------------------------- */
+    .report-section {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .report-frame {
+      width: 95%;
+      height: 75vh;
+      border-radius: 12px;
+      border: none;
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    }
+
+    /* ----------------------------------------------------
+       ANIMATION
+    ---------------------------------------------------- */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ----------------------------------------------------
+       RESPONSIVE
+    ---------------------------------------------------- */
+    @media (max-width: 768px) {
+      .hero { height: 35vh; }
+      .hero-content h1 { font-size: 2rem; }
+      .hero-content p { font-size: 1rem; }
+      .report-frame { height: 70vh; }
+
+      .nav-flex {
+        flex-direction: row; /* keep logo left, hamburger right */
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 60px;
+        right: -250px; /* start hidden on right */
+        flex-direction: column;
+        background: rgba(0, 0, 19, 0.95);
+        width: 220px;
+        height: 100vh;
+        padding-top: 2rem;
+        gap: 1.5rem;
+        transition: right 0.3s ease;
+        z-index: 99;
+      }
+
+      .nav-links.active {
+        right: 0; /* slide in from right */
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND BLOBS -->
+  <div class="animated-bg">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-flex">
+      <div class="logo-container">
+        <img src="logo.png" class="logo-image" alt="Logo">
+        <span class="logo-text">SleepCare Insights</span>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="sleep_quality.html">Sleep Analysis</a></li>
+        <li><a href="About.html">About</a></li>
+      </ul>
+
+      <!-- Hamburger -->
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="background-image: url('boy sleep.png'); background-size: cover; background-position: center;">
+    <div class="hero-content">
+      <h1>Welcome to the Dashboard</h1>
+      <p>Scroll down to view all Power BI reports</p>
+    </div>
+  </section>
+
+  <!-- POWER BI -->
+  <section class="report-section">
+    <iframe
+      class="report-frame"
+      title="FYP"
+      src="https://app.powerbi.com/view?r=eyJrIjoiZDUxMzIzZmItNTlmMC00OWNmLWI1NDEtM2ZiNzg4ZTRlNWZmIiwidCI6ImNkY2JiMGUyLTlmZWEtNGY1NC04NjcwLTY3MjcwNzc5N2FkYSIsImMiOjEwfQ%3D%3D"
+      allowfullscreen>
+    </iframe>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding: 1.5rem 0; text-align: center; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; margin-top: 2rem;">
+    © 2025 UiTM Arau, Perlis | SleepCare Insights | Developed by Sakinah Huda
+  </footer>
+
+  <!-- HAMBURGER SCRIPT -->
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>

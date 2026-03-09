@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SleepCare Insights - About</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---------------- Reset ---------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #1b234d;
+      color: #fff;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; }
+
+    /* ---------------- Container ---------------- */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* ---------------- Navbar ---------------- */
+    .navbar {
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(6px);
+      padding: 0.8rem 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    .nav-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-image {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: 2px solid transparent;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      border: 2px solid #ffb968;
+      background: rgba(255, 185, 104, 0.1);
+    }
+
+    /* Hamburger for mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    /* ---------------- Section Titles ---------------- */
+    section h1, section h3 {
+      text-align: center;
+      color: #ffb968;
+      margin-bottom: 1.5rem;
+    }
+    .about-text { text-align: center; color: #e0e3ff; font-size: 1.1rem; margin-bottom: 2rem; }
+    .flex-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
+
+    /* ---------------- Cards ---------------- */
+    .flex-box, .project-card, .bio-card {
+      background: rgba(255,255,255,0.05);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      text-align: center;
+      max-width: 400px;
+    }
+    .flex-box h3 { margin-bottom: 1rem; }
+    .project-card { max-width: 700px; margin: 0 auto; }
+    .bio-card { display: flex; flex-direction: column; align-items: center; max-width: 500px; }
+    .bio-card img { width: 180px; height: 180px; border-radius: 50%; margin-bottom: 1rem; object-fit: cover; }
+    .bio-text h4 { color: #ffd28a; margin-bottom: 0.5rem; }
+    .bio-text p { text-align: center; margin-bottom: 1rem; }
+
+    /* ---------------- Buttons ---------------- */
+    .method-btn {
+      background: linear-gradient(135deg, #ffb968, #ffd28a);
+      color: #222;
+      padding: 12px 28px;
+      border-radius: 25px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    .method-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 20px rgba(255, 185, 104, 0.4);
+    }
+
+    /* ---------------- Modal ---------------- */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); justify-content: center; align-items: center; z-index: 9999; }
+    .modal-content {
+      background: rgba(255,255,255,0.08);
+      padding: 2.5rem 3rem;
+      border-radius: 22px;
+      max-width: 650px;
+      width: 90%;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+      position: relative;
+    }
+    .close-btn { position: absolute; top: 18px; right: 22px; font-size: 1.6rem; cursor: pointer; color: #fff; transition: 0.3s; }
+    .close-btn:hover { color: #ffb968; }
+
+    /* ---------------- Responsive ---------------- */
+    @media(max-width: 900px) {
+      .flex-container { flex-direction: column; align-items: center; }
+      .bio-card { flex-direction: column; }
+    }
+
+    /* ---------------- Mobile Navbar ---------------- */
+    @media (max-width: 768px) {
+      .nav-flex {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 60px;
+        right: -250px;
+        flex-direction: column;
+        background: rgba(10,10,30,0.95);
+        width: 220px;
+        height: 100vh;
+        padding-top: 2rem;
+        gap: 1.5rem;
+        transition: right 0.3s ease;
+        z-index: 99;
+      }
+
+      .nav-links.active { right: 0; }
+
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-flex">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo-image">
+        <span class="logo-text">SleepCare Insights</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="sleep_quality.html">Sleep Analysis</a></li>
+        <li><a href="About.html" class="active">About</a></li>
+      </ul>
+      <!-- Hamburger -->
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About This Project -->
+  <section id="project-explanation">
+    <div class="container" style="position: relative; border-radius: 20px; padding: 4rem 2rem; min-height: 400px; text-align: center; overflow: hidden;">
+      <div style="
+          background-image: url('boy sleep.png');
+          background-size: cover;
+          background-position: center;
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          opacity: 0.5;
+      "></div>
+      <div style="position: relative; z-index: 1; color: #fff;">
+          <h1 style="text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">About This Project</h1>
+          <p style="text-shadow: 1px 1px 4px rgba(0,0,0,0.7);">
+            This project is an interactive analytical dashboard designed to evaluate sleep quality among patients.
+            Using Big Data analysis, it visualizes key factors affecting sleep, such as lifestyle habits: working hours,
+            caffeine intake, exercise, and stress level. The dashboard aims to provide insights to improve sleep patterns
+            and overall health.
+          </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision & Mission -->
+  <section id="vision-mission">
+    <h1>Vision & Mission</h1>
+    <div class="container flex-container">
+      <div class="flex-box">
+        <h3>Vision</h3>
+        <p>To empower individuals and healthcare professionals with actionable insights to improve sleep quality and health outcomes.</p>
+      </div>
+      <div class="flex-box">
+        <h3>Mission</h3>
+        <p>To create an intuitive, data-driven platform that analyzes sleep patterns and lifestyle habits, providing personalized recommendations for better sleep.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Source -->
+  <section id="data-source">
+    <h1>Data Source</h1>
+    <div class="container flex-container">
+      <div class="flex-box">
+        <h3>Kaggle Dataset</h3>
+        <p>Dataset used for this project is publicly available on Kaggle:</p>
+        <a href="https://www.kaggle.com/datasets/adilshamim8/sleep-cycle-and-productivity/data" target="_blank" style="color:#ffb968;">Visit Kaggle Dataset</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Methodology -->
+  <section id="methodology" style="background: rgba(255, 185, 104, 0.08); padding: 4rem 2rem; text-align: center; border-radius: 20px; margin: 2rem 0;">
+    <h1 style="color:#ffb968;">Methodology</h1>
+    <p class="about-text" style="color:#e0e3ff; max-width: 800px; margin: 0.01rem auto; font-size: 1.15rem;">
+      The project follows data collection, cleaning, analysis, and visualization using interactive dashboards. 
+      Each step is designed to ensure data accuracy and provide actionable insights to improve sleep quality.
+    </p>
+    <button class="method-btn" onclick="openModal()">Read More</button>
+  </section>
+
+  <!-- Target Audience -->
+  <section id="target-audience" style="background: rgba(179, 229, 255, 0.08); padding: 4rem 2rem; text-align: center; border-radius: 20px; margin: 2rem 0;">
+    <h1 style="color:#ffb968;">Target Audience</h1>
+    <p class="about-text" style="color:#e0e3ff; max-width: 900px; margin: 0.01rem auto; font-size: 1.15rem;">
+      This system is designed for the general public to explore sleep and lifestyle patterns through data visualisation. 
+      Insights may also support healthcare awareness by helping individuals and stakeholders understand factors affecting sleep quality.
+    </p>
+  </section>
+
+  <!-- Project Owner -->
+  <section id="biodata" style="text-align:center;">
+    <h1>Project Owner</h1>
+    <div class="container biodata-container" style="display: flex; justify-content: center;">
+      <div class="bio-card">
+        <img src="kinah 2.jpg" alt="Developer Image">
+        <div class="bio-text">
+          <h3 style="text-align:center;">Sakinah Huda Binti Khazali</h3>
+          <h4 style="text-align:center;">2023516313</h4>
+          <p style="text-align:center;">
+            Student from Universiti Teknologi MARA (UiTM) Arau, Perlis, pursuing Bachelor’s Degree in Information Technology (Hons.).<br>
+            Project: Interactive Analytical Dashboard for Sleep Quality Among Patients Using Big Data Analysis.
+          </p>
+          <p style="text-align:center;"><b>Contact:</b><br>
+            <a href="mailto:sakinahhuda4601@gmail.com" style="color:#ffb968;">sakinahhuda4601@gmail.com</a>
+          </p>
+          <div class="social-links" style="text-align:center; margin-top: 0.5rem;">
+            <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a> |
+            <a href="https://github.com/SakinahHuda" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- Modal -->
+  <div class="modal" id="methodModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2>Project Methodology Details</h2>
+      <p>
+        1. 📊 Data Collection: Sleep and lifestyle data were collected from publicly available datasets.<br> <br>
+        2. 🧹 Data Cleaning: Missing values and inconsistencies were handled to ensure accurate analysis.<br><br>
+        3. 📈 Data Analysis: Various statistical and Big Data tools were used to identify patterns affecting sleep quality.<br><br>
+        4. 📊 Visualization: Interactive dashboards were created to present insights using charts and tables.<br><br>
+        5. 💡 Recommendations: Actionable insights were provided for improving sleep habits based on analyzed data.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function openModal() { document.getElementById('methodModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('methodModal').style.display = 'none'; }
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('methodModal')) {
+        closeModal();
+      }
+    }
+
+    // Hamburger toggle
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+  </script>
+
+  <footer style="width:100%; padding:1.5rem 0; text-align:center;">
+    © 2025 UiTM Arau, Perlis | SleepCare Insights | Developed by Sakinah Huda
+  </footer>
+
+</body>
+</html>

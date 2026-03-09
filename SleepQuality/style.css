@@ -1,0 +1,455 @@
+/* ----------------------------------------------------
+   RESET
+---------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #1b234d;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ----------------------------------------------------
+   HEADER (Consistent across all pages)
+---------------------------------------------------- */
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: rgba(75, 123, 236, 0.8);
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.2rem;
+  margin-top: 0;
+  color: #f0f0f0;
+}
+
+/* ----------------------------------------------------
+   NAVBAR
+---------------------------------------------------- */
+.navbar {
+  background: rgba(10,10,30,0.40);
+  backdrop-filter: blur(6px);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.logo-text {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border: 2px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  border: 2px solid #ffb968;
+  background: rgba(255, 185, 104, 0.1);
+}
+
+/* ----------------------------------------------------
+   POPUP MODAL – Project Scope
+---------------------------------------------------- */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2.5rem 3rem;
+  border-radius: 22px;
+  max-width: 650px;
+  width: 90%;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+  animation: popupFade 0.45s ease;
+  position: relative;
+}
+
+.modal-content h2 {
+  text-align: center;
+  color: #ffb968;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.modal-content p {
+  color: #e0e3ff;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  text-align: justify;
+}
+
+.close-btn {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: #ffb968;
+}
+
+@keyframes popupFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ----------------------------------------------------
+   BACKGROUND BLOBS
+---------------------------------------------------- */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -5;
+}
+
+.blob {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at 30% 30%, #ffb3d9, #b38bff);
+  opacity: 0.35;
+  filter: blur(80px);
+  border-radius: 40%;
+  animation: floatBlob 20s infinite ease-in-out alternate;
+}
+
+.blob1 { top: -10%; left: -10%; animation-duration: 22s; }
+.blob2 { bottom: -15%; right: -5%; background: radial-gradient(circle at 20% 20%, #b3e5ff, #809fff); animation-duration: 18s; }
+.blob3 { top: 40%; left: 60%; background: radial-gradient(circle at 20% 20%, #ffe9b3, #ffb968); animation-duration: 25s; }
+
+@keyframes floatBlob {
+  0%   { transform: translate(0,0) scale(1); }
+  50%  { transform: translate(40px,-60px) scale(1.15); }
+  100% { transform: translate(-30px,40px) scale(0.95); }
+}
+
+/* ----------------------------------------------------
+   HOME SECTION
+---------------------------------------------------- */
+#home {
+  position: relative;
+  height: 100vh;
+  background: url('boy sleep.png') no-repeat center center / cover;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+}
+
+#home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  max-width: 550px;
+  padding: 2rem;
+}
+
+.tag {
+  background: #a59fff;
+  padding: 6px 18px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.hero-text h1 {
+  font-size: 4rem;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.benefits li {
+  margin: .5rem 0;
+}
+
+/* ----------------------------------------------------
+   BUTTONS
+---------------------------------------------------- */
+.learn-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffb968, #ffd28a);
+  color: #222;
+  padding: 14px 32px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 18px rgba(255, 185, 104, 0.35);
+  transition: all 0.3s ease;
+}
+
+.learn-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(255, 185, 104, 0.55);
+  background: linear-gradient(135deg, #ffd28a, #ffb968);
+}
+
+/* ----------------------------------------------------
+   SLEEP INFO SECTION
+---------------------------------------------------- */
+#sleep-info {
+  padding: 5rem 0;
+  background: rgba(255,255,255,0.03);
+}
+
+.sleep-info-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.sleep-info-image {
+  flex: 1;
+  min-width: 300px;
+}
+
+.sleep-info-image img {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.sleep-info-text {
+  flex: 1;
+  min-width: 300px;
+  color: #e0e3ff;
+  text-align: justify;
+}
+
+.sleep-info-text h1 {
+  text-align: left;
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+}
+
+.sleep-info-text p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+/* ----------------------------------------------------
+   FEATURES SECTION
+---------------------------------------------------- */
+#features {
+  padding: 5rem 0;
+}
+
+.features-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.feature-box {
+  background: rgba(255,255,255,0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+
+.feature-box p {
+  color: #e0e3ff;
+}
+
+@media(max-width: 900px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  .sleep-info-flex {
+    flex-direction: column;
+  }
+}
+
+/* ----------------------------------------------------
+   ABOUT THIS PROJECT SECTION
+---------------------------------------------------- */
+#project-explanation {
+  padding: 5rem 0;
+}
+
+.project-card {
+  background: rgba(255,255,255,0.05);
+  padding: 2.5rem 2rem;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  text-align: left;
+  color: #e0e3ff;
+  margin-bottom: 3rem;
+}
+
+.project-card h1 {
+  color: #ffb968;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  text-align: center; 
+}
+
+.project-card p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+/* ----------------------------------------------------
+   BIODATA SECTION
+---------------------------------------------------- */
+#biodata {
+  padding: 5rem 0;
+  background: rgba(255,255,255,0.03);
+}
+
+.biodata-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.bio-card {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  width: 700px;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.bio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.bio-card img {
+  width: 180px;
+  height: 180px;
+  border-radius: 15px;
+  object-fit: cover;
+  margin-right: 2rem;
+}
+
+.bio-card .bio-text {
+  flex: 1;
+}
+
+.bio-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #ffb968;
+  text-align: left;
+}
+
+.bio-card p {
+  font-size: 1rem;
+  color: #e0e3ff;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.bio-card a {
+  color: #ffb968;
+  margin: 0 0.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.bio-card a:hover {
+  color: #fff;
+}

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Analysis</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ------------------ BACKGROUND BLOBS ------------------ */
+.animated-bg { position: fixed; inset: 0; overflow: hidden; z-index: -5; }
+.blob {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 40%;
+  opacity: 0.35;
+  filter: blur(80px);
+  animation: floatBlob 20s infinite ease-in-out alternate;
+}
+.blob1 { top: -10%; left: -10%; background: radial-gradient(circle, #ffb3d9, #b38bff); }
+.blob2 { bottom: -15%; right: -5%; background: radial-gradient(circle, #b3e5ff, #809fff); }
+.blob3 { top: 40%; left: 60%; background: radial-gradient(circle, #ffe9b3, #ffb968); }
+
+@keyframes floatBlob {
+  0% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(40px,-60px) scale(1.15); }
+  100% { transform: translate(-30px,40px) scale(0.95); }
+}
+
+/* ------------------ BASE ------------------ */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: #1b234d; color: #fff; }
+a { text-decoration: none; color: inherit; }
+
+/* ------------------ NAVBAR ------------------ */
+.navbar {
+  position: fixed; top: 0; width: 100%;
+  background: rgba(0,0,0,0.9);
+  padding: 0.8rem 1rem; z-index: 100;
+}
+.nav-flex {
+  max-width: 1200px; margin: auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.logo-container { display: flex; align-items: center; gap: 10px; }
+.logo-image { width: 40px; height: 40px; border-radius: 8px; }
+.logo-text { font-size: 1.4rem; font-weight: 700; }
+
+.nav-links { list-style: none; display: flex; gap: 1.5rem; }
+.nav-links a {
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: 0.3s;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  border: 2px solid #ffb968;
+  background: rgba(255,185,104,0.1);
+}
+
+/* Mobile */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger div { width: 25px; height: 3px; background: #fff; }
+
+@media(max-width:768px){
+  .nav-links {
+    position: fixed; top: 60px; right: -240px;
+    background: rgba(0,0,19,0.95);
+    flex-direction: column; width: 220px; height: 100vh; padding-top: 2rem;
+    transition: right 0.3s;
+  }
+  .nav-links.active { right: 0; }
+  .hamburger { display: flex; }
+}
+
+/* ------------------ HERO ------------------ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 20vh;
+  margin-top: 70px;
+  background: url('boy sleep.png') center/cover no-repeat;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(37, 2, 97, 0.9);
+}
+.hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1;
+  color: #fff;
+}
+.hero-content h1 {
+  font-size: 2.6rem;
+  margin-bottom: 0.5rem;
+  animation: fadeIn 1s ease forwards;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.8); 
+}
+.hero-content p {
+  font-size: 1.1rem;
+  animation: fadeIn 1.4s ease forwards;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------ FORM CARD ------------------ */
+.container {
+  max-width: 700px;
+  margin: 2.5rem auto;
+  padding: 2.5rem;
+  background: rgba(98, 104, 160, 0.98); 
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  color: #fff;
+}
+.form-group { margin-bottom: 1.5rem; }
+label { font-weight: 600; margin-bottom: 6px; display: block; color: #fff; }
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-weight: 500;
+  color: #1b234d;
+  background: #fff;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+input:focus {
+  outline: 2px solid #ffb968;
+  box-shadow: 0 0 5px rgba(255,185,104,0.5);
+}
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  font-weight: 700;
+  background: linear-gradient(135deg,#ffb968,#ffd28a);
+  color: #1b234d;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255,185,104,0.5);
+}
+
+/* ------------------ RESULT ------------------ */
+.result {
+  display: none;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 18px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.good { background: rgba(58, 180, 62, 0.25); color: #8aff9c; }
+.normal { background: rgba(243, 220, 9, 0.25); color: #eae8e3; }
+.poor { background: rgba(224, 35, 18, 0.25); color: #f0e6e5; }
+
+/* ------------------ FOOTER ------------------ */
+footer {
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+  text-align: center;
+  background: rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="animated-bg">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<nav class="navbar">
+  <div class="nav-flex">
+    <div class="logo-container">
+      <img src="logo.png" class="logo-image">
+      <span class="logo-text">SleepCare Insights</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="sleep_quality.html" class="active">Sleep Analysis</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Sleep Quality Analysis</h1>
+    <p>Analyze your daily lifestyle habits</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="form-group">
+    <label>Daily Screen Time (hours)</label>
+    <input type="number" id="screen">
+  </div>
+
+  <div class="form-group">
+    <label>Caffeine Intake (cups)</label>
+    <input type="number" id="caffeine">
+  </div>
+
+  <div class="form-group">
+    <label>Working / Study Hours</label>
+    <input type="number" id="work">
+  </div>
+
+  <div class="form-group">
+    <label>Exercise Duration (minutes)</label>
+    <input type="number" id="exercise">
+  </div>
+
+  <button onclick="analyzeSleep()">Analyze Sleep Quality</button>
+
+  <div id="resultBox" class="result">
+    <h2 id="resultTitle"></h2>
+    <p id="resultText"></p>
+  </div>
+</div>
+
+<footer>
+  © 2025 UiTM Arau, Perlis | SleepCare Insights
+</footer>
+
+<script>
+function toggleMenu(){
+  document.querySelector('.nav-links').classList.toggle('active');
+}
+
+// YOUR POWER BI PUSH URL
+const powerBIUrl = "https://api.powerbi.com/beta/cdcbb0e2-9fea-4f54-8670-672707797ada/datasets/2df6fe94-e293-42ed-a27e-ce46f50dfc0f/rows?experience=power-bi&key=hwiCajBEUudMsw9ej9ni72pagGCHFbWB5IrXG4w5W0JdvPxHiNHj9sAt2rHSN0P86zSkByk2209eSvkkUlcxqw%3D%3D"
+
+function analyzeSleep(){
+  const s = +document.getElementById("screen").value;
+  const c = +document.getElementById("caffeine").value;
+  const w = +document.getElementById("work").value;
+  const e = +document.getElementById("exercise").value;
+
+  if([s,c,w,e].some(isNaN)){
+    alert("Please fill in all fields");
+    return;
+  }
+
+  // Calculate score
+  let score = 0;
+  if(s < 4) score += 2; else if(s <= 6) score++;
+  if(c < 2) score += 2; else if(c <= 3) score++;
+  if(w < 6) score += 2; else if(w <= 8) score++;
+  if(e >= 30) score += 2; else if(e >= 15) score++;
+
+  // Determine sleep quality
+  let sleepQuality = "";
+  if(score >= 7) sleepQuality = "Good";
+  else if(score >= 4) sleepQuality = "Normal";
+  else sleepQuality = "Poor";
+
+  // Show on page
+  const box = document.getElementById("resultBox");
+  const title = document.getElementById("resultTitle");
+  const text = document.getElementById("resultText");
+
+  box.style.display = "block";
+  box.className = "result";
+
+  if(score >= 7){
+    box.classList.add("good");
+    title.innerText = "✅ Good Sleep Quality";
+    text.innerText = "Your habits support healthy sleep.";
+  } else if(score >= 4){
+    box.classList.add("normal");
+    title.innerText = "⚠ Normal Sleep Quality";
+    text.innerText = "Some improvements are recommended.";
+  } else {
+    box.classList.add("poor");
+    title.innerText = "❌ Poor Sleep Quality";
+    text.innerText = "Your lifestyle may affect sleep negatively.";
+  }
+
+  // Push to Power BI
+  const payload = [{
+    screenTime: s,
+    caffeineCup: c,
+    workHours: w,
+    exerciseMin: e,
+    sleepScore: score,
+    sleepQuality: sleepQuality,
+    timestamp: new Date().toISOString()
+  }];
+
+  fetch(powerBIUrl, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(() => console.log("Data sent to Power BI"))
+  .catch(err => console.error("Power BI push error:", err));
+}
+</script>
+
+</body>
+</html>

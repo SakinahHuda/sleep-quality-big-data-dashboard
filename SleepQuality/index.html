@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SleepCare Insights</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ================= NAVBAR ================= */
+    .navbar {
+      width: 100%;
+      background: rgba(0,0,0,0.7);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-links a.active {
+      border-bottom: 2px solid #ffb968;
+    }
+
+    /* Hamburger button - hidden on desktop */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        flex-direction: column;
+        background: rgba(0,0,0,0.9);
+        width: 200px;
+        height: 100vh;
+        padding-top: 2rem;
+        gap: 1.5rem;
+        transition: right 0.3s ease;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Optional: Smooth transition for the hero section when navbar is fixed */
+    body {
+      padding-top: 70px; /* equal to navbar height */
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND BLOBS -->
+  <div class="animated-bg">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-flex">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo-image">
+        <span class="logo-text">SleepCare Insights</span>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="sleep_quality.html">Sleep Analysis</a></li>
+        <li><a href="About.html">About</a></li>
+      </ul>
+
+      <!-- Hamburger menu for mobile -->
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HOME SECTION -->
+  <section id="home">
+    <div class="container hero-container">
+      <div class="hero-text">
+        <h1>DREAM</h1>
+        <p class="subtitle">Tips to get a better night’s sleep</p>
+
+        <ul class="benefits">
+          <li>Maintain a sleep schedule</li>
+          <li>Manage lifestyle habits</li>
+        </ul>
+
+        <br>
+        <button class="learn-btn" onclick="openModal()">Learn more</button>
+      </div>
+    </div>
+  </section>
+
+ <!-- ================= POPUP (Explore Dashboard) ================= -->
+<div id="missionModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">✖</span>
+
+    <h2>Explore the Dashboard</h2>
+    <p>
+      This interactive dashboard visualises sleep and lifestyle data using Power BI.
+      Users can explore trends, patterns, and insights derived from processed datasets.
+    </p>
+
+    <p>
+      The dashboard demonstrates how big data analytics and visualisation tools
+      can support better understanding of sleep quality and lifestyle habits.
+    </p>
+
+    <div style="margin-top: 1.5rem; text-align: center;">
+      <a href="dashboard.html" class="learn-btn">
+        Go to Dashboard
+      </a>
+    </div>
+  </div>
+</div>
+<!-- ============================================================= -->
+
+  <!-- SLEEP INFO SECTION -->
+  <section id="sleep-info" class="sleep-info-section">
+    <div class="container sleep-info-container" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+
+      <div class="sleep-info-image" style="flex: 1; min-width: 300px;">
+        <img src="girl sleep.jpg" alt="Sleep Illustration" style="width: 80%; border-radius: 15px;">
+      </div>
+
+      <div class="sleep-info-text" style="flex: 1; min-width: 300px; color:#f3f3f6; text-align:justify;">
+        <h1 style="text-align:left;">Why Good Sleep Matters</h1>
+
+        <p>
+          Sleep plays a vital role in your physical health, emotional well-being, 
+          and daily performance. Good sleep helps your body recover, improves memory, 
+          boosts mood, and strengthens your immune system.
+        </p>
+
+        <p>
+          By maintaining healthy routines, reducing stress, avoiding caffeine late at night, 
+          and sticking to a consistent sleep schedule—you can significantly improve your sleep quality.
+        </p>
+
+        <p>
+          Simple habits lead to long-term improvements in sleep health and daily productivity.
+        </p>
+
+        <br>
+        <a class="learn-btn"
+           href="https://www.thensf.org/#"
+           target="_blank">
+           Explore Trusted Sleep Resources
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+<!-- FEATURES SECTION -->
+<section id="features" class="features-section" style="padding: 4rem 2rem; background: rgba(255,255,255,0.05); border-radius: 20px; margin: 3rem 0;">
+  <div class="container features-container">
+    <h1 style="text-align:center; color:#ffb968; margin-bottom:2rem;">Key Features</h1>
+
+    <div class="features-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:2rem;">
+
+      <!-- Feature 1 -->
+      <div class="feature-box" style="background: rgba(255,185,104,0.08); padding:2rem; border-radius:15px; max-width:300px; text-align:left; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+        <h3 style="color:#ffd28a;">Sleep Overview Dashboard 🖥️</h3>
+        <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+          <li>Interactive overview of sleep quality trends</li>
+          <li>Quickly understand general sleep patterns</li>
+        </ul>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-box" style="background: rgba(255,185,104,0.08); padding:2rem; border-radius:15px; max-width:300px; text-align:left; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+        <h3 style="color:#ffd28a;">Lifestyle Habits Analysis ☕🏃‍♀️</h3>
+        <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+          <li>Shows how caffeine, exercise, stress, and work hours affect sleep</li>
+          <li>Helps identify patterns to improve sleep</li>
+        </ul>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-box" style="background: rgba(255,185,104,0.08); padding:2rem; border-radius:15px; max-width:300px; text-align:left; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+        <h3 style="color:#ffd28a;">Predictive Sleep Insights 🔮</h3>
+        <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+          <li>Predicts sleep quality based on lifestyle habits</li>
+          <li>Provides actionable suggestions for better sleep</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- POPUP SCRIPT -->
+  <script>
+    function openModal() {
+      document.getElementById("missionModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("missionModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("missionModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    /* Hamburger Menu Script */
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+  </script>
+
+</body>
+
+<footer style="width:100%; padding:1.5rem 0; text-align:center;">
+  © 2025 UiTM Arau, Perlis | SleepCare Insights | Developed by Sakinah Huda
+</footer>
+
+</html>
